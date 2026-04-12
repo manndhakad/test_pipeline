@@ -3,7 +3,7 @@ trigger: none
 pool: manojs
 
 stages:
-  - stage:
+  - stage: TerraformIPV
     jobs:
       - job: 
         steps:
@@ -27,3 +27,9 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: 'infrapipeline'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: 'infrapipeline'
+
