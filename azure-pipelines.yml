@@ -8,9 +8,11 @@ stages:
       - job: 
         steps:
           - task: TerraformInstaller@1
+            displayName: Terraform install
             inputs:
               terraformVersion: 'latest'
           - task: TerraformTask@5
+            displayName: Terraform init
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -19,15 +21,18 @@ stages:
               backendAzureRmContainerName: 'punnu12'
               backendAzureRmKey: 'terraform.tfstate'
           - task: TerraformTask@5
+            displayName: terraform validate
             inputs:
               provider: 'azurerm'
               command: 'validate'
           - task: TerraformTask@5
+            displayName: Terraform Plan
             inputs:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: 'infrapipeline'
           - task: TerraformTask@5
+            displayName: Terraform Apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
