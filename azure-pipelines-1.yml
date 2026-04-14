@@ -1,0 +1,30 @@
+trigger: none
+
+pool: agent11
+
+stages:
+  - stage: 
+    jobs:
+      - job: 
+        steps:
+          - task: TerraformInstaller@1
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'pipeline2'
+              backendAzureRmStorageAccountName: 'stpunnu'
+              backendAzureRmContainerName: 'punnu12'
+              backendAzureRmKey: 'terraform.tfstate'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: 'pipeline2'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: 'pipeline2'
